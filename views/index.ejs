@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZAHAR — Haute Parfumerie | Royal Oudh, Perfumes & Artisanal Mists</title>
+  <meta name="description" content="Enter the sanctuary of Zahar Haute Parfumerie. Discover rare Assamese agarwood oudh, handcrafted French-Arabian perfumes, and hydrating body sprays in an ivory and champagne gold aesthetic.">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚜️</text></svg>">
+</head>
+<body>
+
+  <%- include('partials/navbar') %>
+
+  <!-- ═══ CINEMATIC EDITORIAL HERO (WARM IVORY & GOLD) ════════════ -->
+  <section class="hero-editorial">
+    <div class="container">
+      <div class="hero-grid">
+        <!-- Left: Copy & Value Proposition -->
+        <div class="hero-copy">
+          <div class="tagline-eyebrow">Haute Parfumerie Française et Arabe</div>
+          <h1>
+            The Architecture of<br>
+            <em>Sovereign Nobility</em>
+          </h1>
+          <p class="hero-desc">
+            Harvested from 40-year-old wild Assamese agarwood trees, hand-blended with sunrise-plucked Taif roses,
+            and suspended in heavy French crystal decanters. Zahar crafts elixirs that command attention without uttering a word.
+          </p>
+          <div class="hero-actions">
+            <a href="#vault" class="btn-gold">Explore The Vault →</a>
+            <a href="#maison-offers" class="btn-secondary">View Private Offers</a>
+          </div>
+          <div class="hero-stats-row">
+            <div class="stat-box">
+              <strong>40+ Yrs</strong>
+              <span>Wild Assamese Agarwood</span>
+            </div>
+            <div class="stat-box">
+              <strong>35% Oil</strong>
+              <span>Pure Extrait Concentration</span>
+            </div>
+            <div class="stat-box">
+              <strong>4.96 / 5.0</strong>
+              <span>From 12,000+ Patrons</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Flagship Hero Product Card -->
+        <div class="hero-flagship-card">
+          <span class="flagship-badge">Flagship Release</span>
+          <div class="flagship-img-wrap">
+            <img src="<%= products[0].image %>" onerror="this.onerror=null; this.src='/images/products/sovereign-oudh.jpg';" alt="Sovereign Oudh Flagship Decanter">
+          </div>
+          <div class="flagship-meta">
+            <div class="tagline-eyebrow" style="margin-bottom: 6px;"><%= products[0].category %> • <%= products[0].concentration %></div>
+            <h3><%= products[0].name %></h3>
+            <p><%= products[0].description %></p>
+            <div class="flagship-notes-pills">
+              <span class="note-pill">✦ Top: Saffron Filaments</span>
+              <span class="note-pill">✦ Heart: 40-Yr Assamese Oud</span>
+              <span class="note-pill">✦ Base: Mysore Sandalwood</span>
+            </div>
+          </div>
+          <div class="flagship-purchase-row">
+            <div class="flagship-price">
+              <span class="price-num">$<%= products[0].price.toFixed(2) %></span>
+              <span class="sub-label">Includes 2ml sample flacon</span>
+            </div>
+            <button class="btn-gold" style="padding: 12px 24px;" onclick="addQuickToCart(<%= products[0].id %>, '100ml')">
+              Acquire Decanter
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ ACCREDITATIONS & PRESS RIBBON ═══════════════════════════ -->
+  <section class="press-ribbon">
+    <div class="container">
+      <div class="press-label">As Featured In Premier Global Luxury Publications</div>
+      <div class="press-logos">
+        <span class="press-logo">VOGUE</span>
+        <span class="press-logo">GQ LUXURY</span>
+        <span class="press-logo">HARPER'S BAZAAR</span>
+        <span class="press-logo">ROBB REPORT</span>
+        <span class="press-logo">ELLE DÉCOR</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SPECIAL MAISON OFFERS & CURATED RITUALS ═════════════════ -->
+  <section class="maison-offers-section" id="maison-offers">
+    <div class="container">
+      <div class="section-title-wrap">
+        <div class="tagline-eyebrow">Limited Seasonal Privileges</div>
+        <h2>Curated Maison Offers</h2>
+        <p>Pre-packaged sovereign rituals combining our most coveted formulations at exclusive seasonal rates</p>
+      </div>
+
+      <div class="offers-grid">
+        <% if (typeof maisonOffers !== 'undefined' && maisonOffers && maisonOffers.length > 0) { %>
+        <% maisonOffers.forEach(offer => { %>
+        <div class="offer-card">
+          <div class="offer-img-box">
+            <img src="<%= offer.image %>" onerror="this.onerror=null; this.src='/images/offers/offer-royal-ritual.jpg';" alt="<%= offer.title %>" loading="lazy">
+          </div>
+          <div class="offer-body">
+            <span class="offer-badge"><%= offer.badge %></span>
+            <h3><%= offer.title %></h3>
+            <p><%= offer.description %></p>
+            <div class="offer-price-row">
+              <span class="offer-price-current">$<%= offer.specialPrice.toFixed(2) %></span>
+              <span class="offer-price-orig">$<%= offer.originalPrice.toFixed(2) %></span>
+            </div>
+            <button class="btn-gold" onclick="addMaisonOfferToCart('<%= offer.id %>')">
+              Acquire Ritual Bundle →
+            </button>
+          </div>
+        </div>
+        <% }); %>
+        <% } %>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CATEGORY TRI-SHOWCASE ═══════════════════════════════════ -->
+  <section class="category-showcase-section" id="collections">
+    <div class="container">
+      <div class="section-title-wrap">
+        <div class="tagline-eyebrow">The Olfactory Collections</div>
+        <h2>Curated By Concentration & Texture</h2>
+        <p>From the ancient majesty of pure Assamese Oudh to revitalizing all-over botanical mists</p>
+      </div>
+
+      <div class="category-tri-grid">
+        <% categories.forEach(cat => { %>
+        <div class="cat-card-modern" onclick="filterVaultByCategory('<%= cat.slug %>')">
+          <img src="<%= cat.image %>" onerror="this.onerror=null; this.src='/images/categories/category-oudh.jpg';" alt="<%= cat.name %>" loading="lazy">
+          <div class="cat-card-overlay">
+            <span class="cat-card-tag"><%= cat.count %> Formulations Available</span>
+            <h3><%= cat.name %></h3>
+            <p><%= cat.tagline %></p>
+            <span class="cat-card-btn">Explore Collection →</span>
+          </div>
+        </div>
+        <% }); %>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ THE SIGNATURE PRODUCT VAULT (DYNAMIC FILTER GRID) ═══════ -->
+  <section class="products-vault-section" id="vault">
+    <div class="container">
+      <div class="section-title-wrap">
+        <div class="tagline-eyebrow">Artisanal Decanters</div>
+        <h2>The Fragrance Vault</h2>
+        <p>Select your preferred concentration or olfactory family to inspect specifications</p>
+      </div>
+
+      <!-- Category Filter Tabs -->
+      <div class="vault-filter-tabs">
+        <button class="vault-tab-btn active" data-filter="all">All Masterpieces (8)</button>
+        <button class="vault-tab-btn" data-filter="oudh">Extrait & Royal Oudh</button>
+        <button class="vault-tab-btn" data-filter="perfume">Eau de Parfum</button>
+        <button class="vault-tab-btn" data-filter="bodyspray">Body & Linen Mists</button>
+      </div>
+
+      <!-- Product Cards Grid -->
+      <div class="products-grid-modern" id="vaultProductsGrid">
+        <% products.forEach(prod => { %>
+        <div class="prod-card-ecommerce" data-category="<%= prod.category %>" data-id="<%= prod.id %>">
+          <!-- Image Box with Secondary Hover Swap -->
+          <div class="prod-img-box">
+            <img src="<%= prod.image %>" onerror="this.onerror=null; this.src='/images/products/sovereign-oudh.jpg';" alt="<%= prod.name %>" class="prod-primary-img" loading="lazy">
+            <img src="<%= prod.secondaryImage %>" onerror="this.onerror=null; this.src='/images/products/sovereign-oudh.jpg';" alt="<%= prod.name %> alternate view" class="prod-secondary-img" loading="lazy">
+            <% if (prod.badge) { %>
+              <span class="prod-badge"><%= prod.badge %></span>
+            <% } %>
+            <div class="card-floating-tools">
+              <button class="card-tool-icon" title="Quick View" onclick="openQuickViewModal(<%= prod.id %>)" aria-label="Quick View">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+              </button>
+              <button class="card-tool-icon" title="Add to Wishlist" onclick="showLuxToast('Saved <%= prod.name %> to sanctuary wishlist 🤍')" aria-label="Wishlist">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Card Body -->
+          <div class="prod-card-body">
+            <div class="prod-family-tag"><%= prod.scentFamily %></div>
+            <h3 class="prod-card-title">
+              <a href="/product/<%= prod.id %>"><%= prod.name %></a>
+            </h3>
+            <div class="prod-concentration"><%= prod.concentration %></div>
+
+            <div class="prod-rating-row">
+              <span class="stars-gold">★★★★★</span>
+              <span class="review-count"><%= prod.rating %> (<%= prod.reviews %> reviews)</span>
+            </div>
+
+            <!-- Size Selector Pills -->
+            <% if (prod.sizes && prod.sizes.length > 1) { %>
+            <div class="prod-size-pills">
+              <% prod.sizes.forEach((s, idx) => { %>
+                <button type="button" class="size-pill <%= idx === 1 ? 'selected' : '' %>"
+                        onclick="selectCardSize(this, <%= prod.id %>, '<%= s.size %>', <%= s.price %>)">
+                  <%= s.size %>
+                </button>
+              <% }); %>
+            </div>
+            <% } else { %>
+            <div class="prod-size-pills">
+              <span class="size-pill selected" style="cursor: default;"><%= prod.size %></span>
+            </div>
+            <% } %>
+
+            <!-- Pricing & Quick Add -->
+            <div class="prod-bottom-row">
+              <div class="prod-prices">
+                <span class="current-price" id="cardPrice-<%= prod.id %>">$<%= prod.price.toFixed(2) %></span>
+                <% if (prod.originalPrice) { %>
+                  <span class="old-price">$<%= prod.originalPrice.toFixed(2) %></span>
+                <% } %>
+              </div>
+              <button class="quick-add-btn" id="cardAddBtn-<%= prod.id %>" onclick="addCardProductToCart(<%= prod.id %>)">
+                + Quick Add
+              </button>
+            </div>
+          </div>
+        </div>
+        <% }); %>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ BESPOKE 3-PIECE DISCOVERY WARDROBE BUILDER ($45) ════════ -->
+  <section class="discovery-wardrobe-section" id="discovery-wardrobe">
+    <div class="container">
+      <div class="section-title-wrap">
+        <div class="tagline-eyebrow">Private Discovery Experience</div>
+        <h2>Bespoke 3-Piece Flacon Wardrobe</h2>
+        <p>Curate your personal 3 x 10ml travel flacon set for $45. Includes a $45 credit toward your subsequent full-size bottle.</p>
+      </div>
+
+      <div class="discovery-box-interface">
+        <!-- Left: Visual Presentation Box -->
+        <div class="discovery-box-preview">
+          <div class="tagline-eyebrow">Your Custom Wardrobe Decanter Box</div>
+          <div style="margin: 12px 0 16px; border-radius: 6px; overflow: hidden; border: 1px solid var(--gold-border);">
+            <img src="/images/offers/discovery-set.jpg" alt="ZAHAR Bespoke Discovery Wardrobe" style="width: 100%; height: 160px; object-fit: cover;">
+          </div>
+          <div class="box-slots-display">
+            <div class="box-slot empty-slot" id="slot1">
+              <span class="slot-num">Slot 01</span>
+              <span>Select Scent</span>
+            </div>
+            <div class="box-slot empty-slot" id="slot2">
+              <span class="slot-num">Slot 02</span>
+              <span>Select Scent</span>
+            </div>
+            <div class="box-slot empty-slot" id="slot3">
+              <span class="slot-num">Slot 03</span>
+              <span>Select Scent</span>
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--gold-border);">
+            <div>
+              <div style="font-size: 1.45rem; font-family: var(--font-serif); color: var(--gold-dark); font-weight: 700;">$45.00</div>
+              <span style="font-size: 0.72rem; color: var(--text-dim); text-transform: uppercase;">Complimentary Worldwide Shipping</span>
+            </div>
+            <button class="btn-gold" id="addDiscoveryBoxBtn" onclick="addCustomDiscoveryBoxToCart()">
+              Add Custom Box to Bag →
+            </button>
+          </div>
+        </div>
+
+        <!-- Right: Clickable Fragrance Picker -->
+        <div class="discovery-scent-selector">
+          <h4>Select 3 Fragrances to Fill Your Slots</h4>
+          <p>Click any fragrance from the vault below to assign it to your bespoke set:</p>
+
+          <div class="selectable-scents-grid">
+            <% products.forEach(p => { %>
+            <div class="scent-select-card" id="selectCard-<%= p.id %>" onclick="toggleDiscoveryScent(<%= p.id %>, '<%= p.name %>')">
+              <img src="<%= p.image %>" onerror="this.onerror=null; this.src='/images/products/sovereign-oudh.jpg';" alt="<%= p.name %>" class="scent-thumb">
+              <div class="scent-info">
+                <h5><%= p.name %></h5>
+                <span><%= p.category %> • <%= p.scentFamily %></span>
+              </div>
+            </div>
+            <% }); %>
+          </div>
+
+          <div style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.6; background: #FAF7F2; padding: 14px; border-radius: 6px; border: 1px solid var(--gold-border);">
+            ✦ <strong>Bonus Privilege:</strong> Each discovery set includes a voucher granting a <strong>$45 discount</strong> when you purchase any full 100ml flacon within 60 days.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ OLFACTORY PYRAMID VISUALIZER ════════════════════════════ -->
+  <section class="pyramid-section" id="pyramid">
+    <div class="container">
+      <div class="section-title-wrap">
+        <div class="tagline-eyebrow">The Science of Evaporation</div>
+        <h2>The Three Phases of Sillage</h2>
+        <p>Understand how authentic raw absolutes evolve on your skin over a 24-hour cycle</p>
+      </div>
+
+      <div class="pyramid-tabs">
+        <button class="pyramid-tab-btn active" onclick="switchPyramidPhase('top')">Phase 1: Top Notes (0 - 20 Mins)</button>
+        <button class="pyramid-tab-btn" onclick="switchPyramidPhase('heart')">Phase 2: Heart Notes (20m - 5 Hrs)</button>
+        <button class="pyramid-tab-btn" onclick="switchPyramidPhase('base')">Phase 3: Base Notes (5 - 24+ Hrs)</button>
+      </div>
+
+      <div class="pyramid-content-card" id="pyramidCard">
+        <!-- Dynamically rendered via JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ THE 3-STEP SCENT LAYERING RITUAL ═════════════════════════ -->
+  <section class="category-showcase-section" id="layering" style="background: var(--bg-main); border-top: 1px solid var(--gold-border);">
+    <div class="container">
+      <div class="section-title-wrap">
+        <div class="tagline-eyebrow">Arabian Sillage Secret</div>
+        <h2>The Art of Fragrance Layering</h2>
+        <p>How our master perfumers combine textures for an unforgettable personal signature aura</p>
+      </div>
+
+      <div class="category-tri-grid">
+        <div class="cat-card-modern" style="height: 440px; cursor: default;">
+          <img src="/images/rituals/ritual-step1-bodymist.jpg" alt="Body Spray Base">
+          <div class="cat-card-overlay">
+            <span class="cat-card-tag">Step 01 • Hydration Anchor</span>
+            <h3>All-Over Body Mist</h3>
+            <p>Mist across chest, shoulders, and fabric straight out of the bath. Creates a hydrated microscopic film holding volatile top notes in place.</p>
+          </div>
+        </div>
+
+        <div class="cat-card-modern" style="height: 440px; cursor: default;">
+          <img src="/images/rituals/ritual-step2-edp.jpg" alt="Eau de Parfum Projection">
+          <div class="cat-card-overlay">
+            <span class="cat-card-tag">Step 02 • Radiance Projection</span>
+            <h3>Eau de Parfum</h3>
+            <p>Apply 2 to 3 sprays on warm pulse points: collarbones and wrists. Body heat gently disperses the floral, spicy, and citrus aromatics outwards.</p>
+          </div>
+        </div>
+
+        <div class="cat-card-modern" style="height: 440px; cursor: default;">
+          <img src="/images/rituals/ritual-step3-oudh.jpg" alt="Royal Oudh Seal">
+          <div class="cat-card-overlay">
+            <span class="cat-card-tag">Step 03 • Imperial Longevity</span>
+            <h3>Royal Oudh Extrait</h3>
+            <p>Dab a solitary drop of concentrated agarwood behind your ears. The dense resin bonds with skin oils, guaranteeing a 24-hour whisper of nobility.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ VERIFIED CUSTOMER REVIEWS & SOCIAL PROOF ════════════════ -->
+  <section class="reviews-section">
+    <div class="container">
+      <div class="section-title-wrap">
+        <div class="tagline-eyebrow">Independent Patron Testimonials</div>
+        <h2>Voices of The Discerning</h2>
+        <p>Unfiltered accounts from collectors who wear Zahar across Paris, London, Dubai, and New York</p>
+      </div>
+
+      <div class="reviews-grid-modern">
+        <!-- Review 1 -->
+        <div class="review-card-modern">
+          <div class="review-header-row">
+            <span class="stars-gold">★★★★★</span>
+            <span class="review-verified-badge">✓ Verified Patron</span>
+          </div>
+          <div class="review-quote-title">"Sovereign Oudh is on another plane entirely"</div>
+          <p class="review-text">
+            I own vintage bottles of Roja and Xerjoff, but Sovereign Oudh possesses a natural, resinous depth I have never encountered elsewhere.
+            The saffron top gives way to an authentic smoky Assam agarwood that lingered on my wool coat for four straight days.
+          </p>
+          <div class="review-product-tag">Purchased: Sovereign Oudh Extrait (100ml)</div>
+          <div class="reviewer-profile">
+            <div class="reviewer-avatar">T</div>
+            <div class="reviewer-meta">
+              <strong>Tariq Al-Mansoor</strong>
+              <span>Dubai, United Arab Emirates</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="review-card-modern">
+          <div class="review-header-row">
+            <span class="stars-gold">★★★★★</span>
+            <span class="review-verified-badge">✓ Verified Patron</span>
+          </div>
+          <div class="review-quote-title">"The Discovery Set convinced me in one evening"</div>
+          <p class="review-text">
+            Ordering fragrance online is always a gamble, but the 3-piece discovery set is genius. The miniature 10ml sprays are heavy glass flacons,
+            and the $45 rebate towards the full bottle made buying Midnight Noir an absolute no-brainer.
+          </p>
+          <div class="review-product-tag">Purchased: Custom Discovery Wardrobe & Midnight Noir</div>
+          <div class="reviewer-profile">
+            <div class="reviewer-avatar">C</div>
+            <div class="reviewer-meta">
+              <strong>Charlotte Dubois</strong>
+              <span>Paris, France</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="review-card-modern">
+          <div class="review-header-row">
+            <span class="stars-gold">★★★★★</span>
+            <span class="review-verified-badge">✓ Verified Patron</span>
+          </div>
+          <div class="review-quote-title">"The best luxury body mist I have ever tested"</div>
+          <p class="review-text">
+            Aegean Azure is nothing like drugstore body sprays. It smells like a $300 niche aquatic fragrance with genuine sea salt and myrtle,
+            plus the organic aloe doesn't dry out your skin after a shower. Reordering two more today.
+          </p>
+          <div class="review-product-tag">Purchased: Aegean Azure Hydrating Mist (200ml)</div>
+          <div class="reviewer-profile">
+            <div class="reviewer-avatar">M</div>
+            <div class="reviewer-meta">
+              <strong>Marcus Vance</strong>
+              <span>New York, United States</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ TRUST & RISK-FREE GUARANTEES ════════════════════════════ -->
+  <section class="trust-ribbon-section">
+    <div class="container">
+      <div class="trust-grid">
+        <div class="trust-item">
+          <div class="trust-icon">⚜️</div>
+          <div class="trust-text">
+            <h4>Sample Before Unsealing</h4>
+            <p>Every 100ml decanter includes a 2ml sample vial. Test first; return the sealed decanter for free if not 100% in love.</p>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">✈️</div>
+          <div class="trust-text">
+            <h4>Complimentary Courier</h4>
+            <p>Free tracked express shipping across 45 countries on all orders over $150 via DHL Express.</p>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">🌿</div>
+          <div class="trust-text">
+            <h4>Ethical Wild Agarwood</h4>
+            <p>100% sustainably replanted Assamese agarwood reserves with certified CITES verification.</p>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">🎁</div>
+          <div class="trust-text">
+            <h4>Signature Decanter Box</h4>
+            <p>Hand-numbered bottles encased in black velvet-lined presentation coffrets with gold embossed wax seals.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ VIP CLUB NEWSLETTER (15% OFF) ═══════════════════════════ -->
+  <section class="newsletter-vip-section">
+    <div class="container">
+      <div class="tagline-eyebrow">Private Circle Access</div>
+      <h2 style="font-family: var(--font-serif); font-size: 2.8rem; color: var(--text-main); margin: 12px 0 10px;">The Zahar Circle</h2>
+      <p style="color: var(--text-muted); max-width: 560px; margin: 0 auto;">
+        Receive invitations to private small-batch barrel reserves, master perfumer consultations, and 15% off your maiden order with code <strong>ROYAL15</strong>.
+      </p>
+
+      <div class="vip-form-box">
+        <form id="vipNewsletterForm" class="vip-input-wrap">
+          <input type="email" id="vipEmailInput" placeholder="Enter your private email address..." required>
+          <button type="submit">Claim 15% Code</button>
+        </form>
+        <div class="vip-privacy-note">✦ Confidential membership. No spam. You may withdraw at any time.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SITE FOOTER ═════════════════════════════════════════════ -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-main-grid">
+        <div class="footer-brand-col">
+          <span class="brand-name">ZAHAR</span>
+          <p>
+            An independent Haute Parfumerie house dedicated to preserving rare Arabian agarwood distillation
+            traditions married with contemporary French aromatic artistry.
+          </p>
+          <div class="footer-social-links">
+            <a href="#" aria-label="Instagram">IG</a>
+            <a href="#" aria-label="Twitter">X</a>
+            <a href="#" aria-label="Facebook">FB</a>
+            <a href="#" aria-label="YouTube">YT</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>The Vault</h4>
+          <ul>
+            <li><a href="#vault">All Decanters</a></li>
+            <li><a href="#vault" onclick="filterVaultByCategory('oudh')">Extrait de Oudh</a></li>
+            <li><a href="#vault" onclick="filterVaultByCategory('perfume')">Eau de Parfum</a></li>
+            <li><a href="#vault" onclick="filterVaultByCategory('bodyspray')">Botanical Body Mists</a></li>
+            <li><a href="#discovery-wardrobe">Discovery Sets</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Privileges</h4>
+          <ul>
+            <li><a href="#discovery-wardrobe">Custom Discovery Set</a></li>
+            <li><a href="#layering">The Layering Ritual</a></li>
+            <li><a href="/checkout">Direct Checkout</a></li>
+            <li><a href="/order-cancelled?reason=status_check">Order Status Center</a></li>
+            <li><a href="#">Complimentary Samples</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Concierge</h4>
+          <ul>
+            <li><a href="#">Private Fragrance Consultation</a></li>
+            <li><a href="#">Flagship Salons (Paris & Dubai)</a></li>
+            <li><a href="#">Returns & Guarantees</a></li>
+            <li><a href="#">concierge@zahar-parfums.com</a></li>
+            <li><a href="#">+971 4 800 ZAHAR</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom-bar">
+        <div>© 2026 ZAHAR Haute Parfumerie Paris & Dubai. All Rights Reserved.</div>
+        <div class="payment-badges-row">
+          <span class="pay-pill">VISA</span>
+          <span class="pay-pill">MASTERCARD</span>
+          <span class="pay-pill">AMEX</span>
+          <span class="pay-pill">APPLE PAY</span>
+          <span class="pay-pill">DHL EXPRESS</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══ SLIDE-IN CART DRAWER ════════════════════════════════════ -->
+  <div class="cart-drawer-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer">
+    <div class="cart-drawer-head">
+      <h3>Your Fragrance Bag (<span id="cartDrawerCount"><%= cartData ? cartData.itemCount : 0 %></span>)</h3>
+      <span class="cart-close-icon" id="closeCartBtn">✕</span>
+    </div>
+
+    <!-- Free Shipping & Gift Milestone Tracker ($150 threshold) -->
+    <div class="cart-tier-tracker">
+      <div class="tier-status-text">
+        <span id="tierLabel">Complimentary Courier Threshold: $150.00</span>
+        <strong id="tierRemaining">$150.00 away</strong>
+      </div>
+      <div class="tier-bar-track">
+        <div class="tier-bar-fill" id="tierBarFill" style="width: 0%;"></div>
+      </div>
+    </div>
+
+    <!-- Scrollable Items List -->
+    <div class="cart-items-scrollable" id="cartDrawerItems">
+      <!-- Injected dynamically via JS -->
+    </div>
+
+    <!-- Cart Footer with Promo Code & Total -->
+    <div class="cart-drawer-foot">
+      <div class="cart-coupon-row">
+        <input type="text" id="couponInput" placeholder="PROMO CODE (e.g. ROYAL15)">
+        <button type="button" onclick="applyCouponCode()">Apply</button>
+      </div>
+
+      <div class="cart-breakdown-row">
+        <span>Subtotal</span>
+        <span id="cartDrawerSubtotal">$0.00</span>
+      </div>
+      <div class="cart-breakdown-row" id="discountRow" style="display: none; color: #2E7D32;">
+        <span id="discountLabel">VIP Discount (15%)</span>
+        <span id="discountAmount">-$0.00</span>
+      </div>
+      <div class="cart-breakdown-row">
+        <span>Delivery</span>
+        <span id="deliveryLabel" style="color: var(--gold-dark); font-weight: 600;">Complimentary over $150</span>
+      </div>
+      <div class="cart-breakdown-row total-row">
+        <span>Estimated Total</span>
+        <span id="cartDrawerTotal">$0.00</span>
+      </div>
+
+      <a href="/checkout" class="btn-gold" style="display: block; text-align: center; width: 100%;">
+        Proceed to Secure Checkout →
+      </a>
+      <div style="font-size: 0.7rem; color: var(--text-dim); text-align: center; margin-top: 10px;">
+        🔒 Encrypted 256-Bit SSL • Complimentary Gift Packaging Included
+      </div>
+    </div>
+  </aside>
+
+  <!-- ═══ LIVE SEARCH DRAWER OVERLAY ══════════════════════════════ -->
+  <div class="search-drawer-overlay" id="searchDrawerOverlay">
+    <div class="search-container">
+      <div class="search-input-box">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input type="text" id="liveSearchInput" placeholder="Search by note (e.g., Saffron, Oud, Rose, Amber)..." autocomplete="off">
+        <span class="search-close-btn" id="closeSearchBtn">✕</span>
+      </div>
+
+      <div class="search-results-tray" id="searchResultsTray">
+        <!-- Rendered live via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ QUICK VIEW MODAL OVERLAY ════════════════════════════════ -->
+  <div class="qv-modal-overlay" id="qvModal">
+    <div class="qv-modal-card">
+      <button class="qv-close-btn" id="closeQvBtn">✕</button>
+      <div class="qv-image-box">
+        <img id="qvModalImg" src="" alt="Quick View Product">
+      </div>
+      <div class="qv-details-box">
+        <div class="tagline-eyebrow" id="qvModalCategory"></div>
+        <h3 style="font-family: var(--font-serif); font-size: 2.2rem; color: var(--text-main); margin: 8px 0 4px;" id="qvModalName"></h3>
+        <div style="color: var(--text-dim); font-size: 0.85rem; margin-bottom: 14px;" id="qvModalSubtitle"></div>
+        <div style="font-family: var(--font-serif); font-size: 1.8rem; color: var(--gold-dark); font-weight: 700; margin-bottom: 16px;" id="qvModalPrice"></div>
+        <p style="color: var(--text-muted); font-size: 0.92rem; line-height: 1.7; margin-bottom: 20px;" id="qvModalDesc"></p>
+
+        <div style="background: #FAF7F2; border: 1px solid var(--gold-border); padding: 14px 18px; border-radius: 6px; margin-bottom: 24px; font-size: 0.82rem;" id="qvNotesBox">
+          <!-- Injected via JS -->
+        </div>
+
+        <div style="display: flex; gap: 14px;">
+          <button class="btn-gold" id="qvAddToCartBtn" style="flex: 1;">Add to Bag</button>
+          <a href="#" id="qvFullStoryLink" class="btn-secondary" style="padding: 14px 22px;">Full Story →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ LUXURY TOAST WRAPPER ════════════════════════════════════ -->
+  <div class="luxury-toast-wrap" id="luxToastWrap"></div>
+
+  <!-- Pass server data safely to client JS -->
+  <script>
+    window.ZAHAR_CATALOG = <%- JSON.stringify(products) %>;
+    window.ZAHAR_OFFERS = <%- JSON.stringify(typeof maisonOffers !== 'undefined' ? maisonOffers : []) %>;
+  </script>
+  <script src="/js/main.js"></script>
+</body>
+</html>

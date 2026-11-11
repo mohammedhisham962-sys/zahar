@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Fragrance Vault — ZAHAR Haute Parfumerie</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚜️</text></svg>">
+</head>
+<body>
+
+  <%- include('partials/navbar') %>
+  <%- include('partials/cart-sidebar') %>
+
+  <!-- ═══ SHOP VAULT HEADER ══════════════════════════════════════ -->
+  <main class="products-vault-section" style="min-height: 85vh; padding: 70px 0 100px;">
+    <div class="container">
+      <div class="section-title-wrap">
+        <div class="tagline-eyebrow">Haute Parfumerie Catalog</div>
+        <h2>
+          <% if (category === 'oudh') { %>
+            Imperial Oudh & Attars
+          <% } else if (category === 'perfume') { %>
+            Signature Eau de Parfum
+          <% } else if (category === 'bodyspray') { %>
+            Botanical Body & Linen Mists
+          <% } else { %>
+            The Complete Fragrance Vault
+          <% } %>
+        </h2>
+        <p>Distilled from ancient Assamese agarwoods, Bulgarian roses, and mineral Mediterranean sea salts</p>
+      </div>
+
+      <!-- Filter Tabs -->
+      <div class="vault-filter-tabs">
+        <a href="/shop?category=all" class="vault-tab-btn <%= category === 'all' ? 'active' : '' %>">All Masterpieces</a>
+        <a href="/shop?category=oudh" class="vault-tab-btn <%= category === 'oudh' ? 'active' : '' %>">Imperial Oudh</a>
+        <a href="/shop?category=perfume" class="vault-tab-btn <%= category === 'perfume' ? 'active' : '' %>">Eau de Parfum</a>
+        <a href="/shop?category=bodyspray" class="vault-tab-btn <%= category === 'bodyspray' ? 'active' : '' %>">Body Mists</a>
+      </div>
+
+      <!-- Products Grid -->
+      <div class="products-grid-modern" id="vaultProductsGrid">
+        <% if (products.length === 0) { %>
+          <div style="grid-column: 1 / -1; text-align: center; padding: 60px 0; color: var(--text-muted);">
+            <p style="font-family: var(--font-serif); font-size: 1.4rem;">No creations found in this collection.</p>
+            <a href="/shop" class="btn-gold" style="margin-top: 20px;">View Complete Vault</a>
+          </div>
+        <% } else { %>
+          <% products.forEach(prod => { %>
+          <div class="prod-card-ecommerce" data-category="<%= prod.category %>">
+            <div class="prod-img-box">
+              <a href="/product/<%= prod.id %>">
+                <img src="<%= prod.image %>" onerror="this.onerror=null; this.src='/images/products/sovereign-oudh.jpg';" alt="<%= prod.name %>" class="prod-primary-img" loading="lazy">
+                <img src="<%= prod.secondaryImage %>" onerror="this.onerror=null; this.src='/images/products/sovereign-oudh.jpg';" alt="<%= prod.name %> alternate" class="prod-secondary-img" loading="lazy">
+              </a>
+              <% if (prod.badge) { %>
+                <span class="prod-badge"><%= prod.badge %></span>
+              <% } %>
+              <div class="card-floating-tools">
+                <button class="card-tool-icon" title="Quick View" onclick="location.href='/product/<%= prod.id %>'" aria-label="View Details">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+                </button>
+                <button class="card-tool-icon" title="Wishlist" onclick="showLuxToast('Saved <%= prod.name %> to sanctuary wishlist 🤍')" aria-label="Wishlist">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="prod-card-body">
+              <div class="prod-family-tag"><%= prod.scentFamily %></div>
+              <h3 class="prod-card-title">
+                <a href="/product/<%= prod.id %>"><%= prod.name %></a>
+              </h3>
+              <div class="prod-concentration"><%= prod.concentration %> • <%= prod.size %></div>
+
+              <div class="prod-rating-row">
+                <span class="stars-gold">★★★★★</span>
+                <span class="review-count"><%= prod.rating %> (<%= prod.reviews %> reviews)</span>
+              </div>
+
+              <div class="prod-bottom-row">
+                <div class="prod-prices">
+                  <span class="current-price" id="cardPrice-<%= prod.id %>">$<%= prod.price.toFixed(2) %></span>
+                  <% if (prod.originalPrice) { %>
+                    <span class="old-price">$<%= prod.originalPrice.toFixed(2) %></span>
+                  <% } %>
+                </div>
+                <button class="quick-add-btn" onclick="addQuickToCart(<%= prod.id %>)">
+                  + Quick Add
+                </button>
+              </div>
+            </div>
+          </div>
+          <% }); %>
+        <% } %>
+      </div>
+    </div>
+  </main>
+
+  <%- include('partials/footer') %>
+
+  <!-- Luxury Toast Wrapper -->
+  <div class="luxury-toast-wrap" id="luxToastWrap"></div>
+
+  <script>
+    window.ZAHAR_CATALOG = <%- JSON.stringify(allProducts) %>;
+  </script>
+  <script src="/js/main.js"></script>
+</body>
+</html>

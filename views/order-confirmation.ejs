@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acquisition Confirmed — Order <%= order.orderId %> | ZAHAR</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚜️</text></svg>">
+</head>
+<body>
+
+  <%- include('partials/navbar') %>
+
+  <!-- ═══ CONFIRMATION INTERFACE ═════════════════════════════════ -->
+  <main class="confirmation-page-wrap">
+    <div class="container">
+      <div class="confirmation-card-modern">
+        <!-- Gold Seal Icon -->
+        <div class="seal-icon-wrap">⚜️</div>
+
+        <div class="tagline-eyebrow">Acquisition Complete & Registered</div>
+        <h1 style="font-family: var(--font-serif); font-size: 2.8rem; color: var(--text-main); margin: 12px 0 10px;">
+          Thank You, <%= order.customer.name %>
+        </h1>
+        <p style="color: var(--text-muted); max-width: 580px; margin: 0 auto 24px; font-size: 1.05rem;">
+          Your order has been recorded into our private atelier ledger. Our senior perfumers are now preparing,
+          hand-numbering, and wax-sealing your flacons for courier dispatch.
+        </p>
+
+        <!-- Order Metadata Grid -->
+        <div class="confirmation-meta-box">
+          <div class="confirmation-meta-item">
+            <strong>Acquisition Number</strong>
+            <span style="color: var(--gold-dark); font-family: var(--font-brand); font-size: 1.15rem;"><%= order.orderId %></span>
+          </div>
+          <div class="confirmation-meta-item">
+            <strong>Date Registered</strong>
+            <span><%= order.createdAt %></span>
+          </div>
+          <div class="confirmation-meta-item">
+            <strong>Estimated Dispatch</strong>
+            <span style="color: #2E7D32;">24 - 48 Hours via DHL Express</span>
+          </div>
+        </div>
+
+        <!-- Purchased Decanters Manifest -->
+        <h3 style="font-family: var(--font-serif); font-size: 1.4rem; text-align: left; margin-bottom: 16px;">
+          Purchased Flacons & Decanters
+        </h3>
+        <table class="purchased-items-table">
+          <thead>
+            <tr>
+              <th>Creation</th>
+              <th>Format</th>
+              <th>Quantity</th>
+              <th style="text-align: right;">Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% order.items.forEach(item => { %>
+            <tr>
+              <td style="display: flex; align-items: center; gap: 14px;">
+                <img src="<%= item.product.image || '/images/products/sovereign-oudh.jpg' %>" onerror="this.onerror=null; this.src='/images/products/sovereign-oudh.jpg';" alt="<%= item.product.name %>" style="width: 48px; height: 58px; object-fit: cover; border-radius: 4px; border: 1px solid var(--gold-border);">
+                <div>
+                  <strong style="font-family: var(--font-serif); font-size: 1.05rem; display: block; color: var(--text-main);"><%= item.product.name %></strong>
+                  <span style="font-size: 0.75rem; color: var(--text-dim);"><%= item.product.category %></span>
+                </div>
+              </td>
+              <td><span style="color: var(--gold-dark); font-weight: 600;"><%= item.selectedSize %></span></td>
+              <td><%= item.quantity %></td>
+              <td style="text-align: right; font-family: var(--font-serif); font-weight: 700; color: var(--text-main);">
+                $<%= (item.price * item.quantity).toFixed(2) %>
+              </td>
+            </tr>
+            <% }); %>
+          </tbody>
+        </table>
+
+        <!-- Included Complimentary Gifts -->
+        <div class="complimentary-gifts-box">
+          <div style="font-family: var(--font-brand); font-size: 0.76rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-dark); font-weight: 700; margin-bottom: 10px;">
+            ✦ Included Maison Gifts in Your Parcel
+          </div>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 6px; font-size: 0.85rem; color: var(--text-sub);">
+            <% order.gifts.forEach(gift => { %>
+              <li>⚜️ <%= gift %></li>
+            <% }); %>
+          </ul>
+        </div>
+
+        <!-- Destination & Financial Summary -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; text-align: left; padding: 24px 0; border-top: 1px solid var(--gold-border); margin-bottom: 36px;">
+          <div>
+            <div style="font-family: var(--font-brand); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 6px;">
+              Delivery Coordinates
+            </div>
+            <p style="font-size: 0.92rem; color: var(--text-main); line-height: 1.6;">
+              <%= order.customer.name %><br>
+              <%= order.customer.address %><br>
+              <%= order.customer.city %>, <%= order.customer.country %><br>
+              Contact: <%= order.customer.phone %>
+            </p>
+          </div>
+
+          <div style="text-align: right;">
+            <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 4px;">
+              Subtotal: <strong>$<%= order.subtotal %></strong>
+            </div>
+            <% if (order.discountPercent > 0) { %>
+            <div style="font-size: 0.85rem; color: #2E7D32; margin-bottom: 4px;">
+              VIP Discount: <strong>-$<%= order.discountAmount %></strong>
+            </div>
+            <% } %>
+            <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">
+              DHL Express Courier: <strong>Complimentary</strong>
+            </div>
+            <div style="font-family: var(--font-serif); font-size: 1.6rem; color: var(--gold-dark); font-weight: 700;">
+              Total Paid: $<%= order.total %>
+            </div>
+            <div style="font-size: 0.72rem; color: var(--text-dim); margin-top: 4px;">
+              Settled via <%= order.paymentMethod %>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+          <a href="/" class="btn-gold">Return to Maison Sanctuary →</a>
+          <button type="button" class="btn-secondary" onclick="window.print()">
+            Print Acquisition Certificate 🖨️
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <%- include('partials/footer') %>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

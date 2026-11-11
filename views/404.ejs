@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fragrance Not Found — Zahar</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
+</head>
+<body>
+  <%- include('partials/navbar') %>
+
+  <!-- Cart Overlay -->
+  <div class="cart-overlay"></div>
+  <%- include('partials/cart-sidebar') %>
+
+  <main style="min-height: 80vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 120px 20px;">
+    <div>
+      <div style="font-family: var(--font-heading); font-size: 7rem; font-weight: 700; color: var(--gold); line-height: 1;">404</div>
+      <h1 style="font-family: var(--font-heading); font-size: 2.2rem; margin: 20px 0 10px;">Fragrance Lost in Time</h1>
+      <p style="color: var(--text-secondary); max-width: 480px; margin: 0 auto 30px;">
+        The essence you seek has vanished into thin air, or perhaps it never existed at all.
+      </p>
+      <a href="/" class="btn btn-primary">Return to Sanctuary</a>
+    </div>
+  </main>
+
+  <%- include('partials/footer') %>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

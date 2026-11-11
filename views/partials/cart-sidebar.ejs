@@ -1,0 +1,56 @@
+<!-- Slide-In Cart Drawer -->
+<div class="cart-drawer-overlay" id="cartOverlay"></div>
+<aside class="cart-drawer" id="cartDrawer">
+  <div class="cart-drawer-head">
+    <h3>Your Fragrance Bag (<span id="cartDrawerCount"><%= (typeof cartData !== 'undefined' && cartData) ? cartData.itemCount : ((typeof cart !== 'undefined' && cart) ? cart.reduce((s,i)=>s+i.quantity,0) : 0) %></span>)</h3>
+    <span class="cart-close-icon" id="closeCartBtn" onclick="closeCart()">✕</span>
+  </div>
+
+  <!-- Milestone Free Delivery Tracker ($150 threshold) -->
+  <div class="cart-tier-tracker">
+    <div class="tier-status-text">
+      <span id="tierLabel">Complimentary Courier Threshold: $150.00</span>
+      <strong id="tierRemaining">$150.00 away</strong>
+    </div>
+    <div class="tier-bar-track">
+      <div class="tier-bar-fill" id="tierBarFill" style="width: 0%;"></div>
+    </div>
+  </div>
+
+  <!-- Scrollable Items List -->
+  <div class="cart-items-scrollable" id="cartDrawerItems">
+    <!-- Populated live via JS -->
+  </div>
+
+  <!-- Cart Footer -->
+  <div class="cart-drawer-foot">
+    <div class="cart-coupon-row">
+      <input type="text" id="couponInput" placeholder="PROMO CODE (e.g. ROYAL15)">
+      <button type="button" onclick="applyCouponCode()">Apply</button>
+    </div>
+
+    <div class="cart-breakdown-row">
+      <span>Subtotal</span>
+      <span id="cartDrawerSubtotal">$0.00</span>
+    </div>
+    <div class="cart-breakdown-row" id="discountRow" style="display: none; color: #2E7D32;">
+      <span id="discountLabel">VIP Discount (15%)</span>
+      <span id="discountAmount">-$0.00</span>
+    </div>
+    <div class="cart-breakdown-row">
+      <span>Courier Delivery</span>
+      <span style="color: var(--gold-dark); font-weight: 600;">Complimentary over $150</span>
+    </div>
+    <div class="cart-breakdown-row total-row">
+      <span>Estimated Total</span>
+      <span id="cartDrawerTotal">$0.00</span>
+    </div>
+
+    <a href="/checkout" class="btn-gold" style="display: block; text-align: center; width: 100%;">
+      Proceed to Secure Checkout →
+    </a>
+    <div style="font-size: 0.7rem; color: var(--text-dim); text-align: center; margin-top: 10px;">
+      🔒 Encrypted 256-Bit SSL • Complimentary Gift Decanter Packaging
+    </div>
+  </div>
+</aside>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= product.name %> — ZAHAR Haute Parfumerie</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚜️</text></svg>">
+</head>
+<body>
+
+  <%- include('partials/navbar') %>
+  <%- include('partials/cart-sidebar') %>
+
+  <!-- ═══ PRODUCT DETAIL ═════════════════════════════════════════ -->
+  <article style="padding: 70px 0 90px; background: var(--bg-main);">
+    <div class="container">
+      <div style="display: grid; grid-template-columns: 1fr 1.15fr; gap: 60px; align-items: start;">
+        <!-- Left: Gallery -->
+        <div style="position: sticky; top: 110px;">
+          <div style="height: 560px; background: #FFFFFF; border: 1px solid var(--gold-border); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md);">
+            <img src="<%= product.image %>" onerror="this.onerror=null; this.src='/images/products/sovereign-oudh.jpg';" alt="<%= product.name %>" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+        </div>
+
+        <!-- Right: Information -->
+        <div>
+          <div style="font-size: 0.82rem; color: var(--text-dim); margin-bottom: 16px;">
+            <a href="/" style="color: var(--gold-dark);">Maison</a> / <a href="/shop" style="color: var(--gold-dark);">Vault</a> / <span><%= product.name %></span>
+          </div>
+
+          <div class="tagline-eyebrow" style="margin-bottom: 8px;"><%= product.category %> • <%= product.concentration %></div>
+          <h1 style="font-family: var(--font-serif); font-size: 3.2rem; color: var(--text-main); margin-bottom: 6px;">
+            <%= product.name %>
+          </h1>
+          <div style="font-size: 1.1rem; color: var(--text-muted); margin-bottom: 20px;">
+            <%= product.subtitle %>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
+            <span class="stars-gold">★★★★★</span>
+            <span style="font-size: 0.85rem; color: var(--text-dim);"><%= product.rating %> (<%= product.reviews %> patron reviews)</span>
+          </div>
+
+          <div style="display: flex; align-items: baseline; gap: 14px; margin-bottom: 28px;">
+            <span style="font-family: var(--font-serif); font-size: 2.2rem; color: var(--gold-dark); font-weight: 700;">
+              $<%= product.price.toFixed(2) %>
+            </span>
+            <% if (product.originalPrice) { %>
+              <span style="font-size: 1.2rem; color: var(--text-dim); text-decoration: line-through;">
+                $<%= product.originalPrice.toFixed(2) %>
+              </span>
+            <% } %>
+            <span style="font-size: 0.75rem; color: #2E7D32; background: #E8F5E9; padding: 3px 10px; border-radius: 20px; font-weight: 700;">
+              In Stock & Ready for Courier
+            </span>
+          </div>
+
+          <p style="color: var(--text-muted); font-size: 1.05rem; line-height: 1.8; margin-bottom: 32px;">
+            <%= product.description %>
+          </p>
+
+          <!-- Olfactory Architecture Box -->
+          <% if (product.notes) { %>
+          <div style="background: #FFFFFF; border: 1px solid var(--gold-border); border-radius: var(--radius-md); padding: 28px; margin-bottom: 32px; box-shadow: var(--shadow-sm);">
+            <div style="font-family: var(--font-brand); font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-dark); font-weight: 700; margin-bottom: 16px;">
+              Olfactory Architecture
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; text-align: center;">
+              <div style="background: #FAF7F2; padding: 14px; border-radius: 6px; border: 1px solid var(--gold-border);">
+                <span style="font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim); display: block; margin-bottom: 4px;">Top Notes</span>
+                <strong style="font-family: var(--font-serif); font-size: 0.95rem; color: var(--text-main);"><%= product.notes.top %></strong>
+              </div>
+              <div style="background: #FAF7F2; padding: 14px; border-radius: 6px; border: 1px solid var(--gold-border);">
+                <span style="font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim); display: block; margin-bottom: 4px;">Heart Notes</span>
+                <strong style="font-family: var(--font-serif); font-size: 0.95rem; color: var(--text-main);"><%= product.notes.middle %></strong>
+              </div>
+              <div style="background: #FAF7F2; padding: 14px; border-radius: 6px; border: 1px solid var(--gold-border);">
+                <span style="font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim); display: block; margin-bottom: 4px;">Base Notes</span>
+                <strong style="font-family: var(--font-serif); font-size: 0.95rem; color: var(--text-main);"><%= product.notes.base %></strong>
+              </div>
+            </div>
+          </div>
+          <% } %>
+
+          <!-- Acquisition Actions -->
+          <div style="display: flex; gap: 14px; margin-bottom: 36px;">
+            <button class="btn-gold" style="flex: 1; padding: 18px;" onclick="addQuickToCart(<%= product.id %>)">
+              Acquire Decanter • $<%= product.price.toFixed(2) %>
+            </button>
+            <button class="btn-secondary" style="padding: 18px 24px;" onclick="showLuxToast('Saved <%= product.name %> to sanctuary wishlist 🤍')">
+              ♡ Save
+            </button>
+          </div>
+
+          <!-- Included Maison Privileges -->
+          <div style="padding-top: 24px; border-top: 1px solid var(--gold-border); display: flex; flex-direction: column; gap: 10px; font-size: 0.85rem; color: var(--text-sub);">
+            <div>⚜️ <strong>Risk-Free Sampling:</strong> 2ml tester included; return sealed 100ml decanter for free if not 100% in love.</div>
+            <div>✈️ <strong>Complimentary Shipping:</strong> Tracked express delivery across 45 countries via DHL.</div>
+            <div>🎁 <strong>Velvet Coffret:</strong> Hand-numbered crystal decanter encased in gold-foiled presentation box.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <%- include('partials/footer') %>
+
+  <!-- Luxury Toast Wrapper -->
+  <div class="luxury-toast-wrap" id="luxToastWrap"></div>
+
+  <script>
+    window.ZAHAR_CATALOG = [<%- JSON.stringify(product) %>];
+  </script>
+  <script src="/js/main.js"></script>
+</body>
+</html>

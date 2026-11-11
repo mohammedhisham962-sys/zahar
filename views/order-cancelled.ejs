@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %> — ZAHAR Haute Parfumerie</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚜️</text></svg>">
+</head>
+<body>
+
+  <%- include('partials/navbar') %>
+
+  <!-- ═══ ORDER UNCOMPLETED / CANCELLED INTERFACE ═════════════════ -->
+  <main class="cancelled-page-wrap">
+    <div class="container">
+      <div class="cancelled-card-modern">
+        <!-- Reassurance Icon -->
+        <div style="width: 72px; height: 72px; border-radius: 50%; background: #FDF4F2; border: 1px solid #F5C6CB; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 20px;">
+          ⏳
+        </div>
+
+        <div class="tagline-eyebrow" style="color: #9E3A20;">Notice of Status</div>
+        <h1 style="font-family: var(--font-serif); font-size: 2.5rem; color: var(--text-main); margin: 12px 0 10px;">
+          <%= title %>
+        </h1>
+        <p style="color: var(--text-muted); font-size: 1.05rem; line-height: 1.8; margin-bottom: 28px;">
+          <%= message %>
+        </p>
+
+        <!-- Status Highlights -->
+        <div style="background: #FAF7F2; border: 1px solid var(--gold-border); border-radius: var(--radius-sm); padding: 22px; text-align: left; margin-bottom: 32px;">
+          <h4 style="font-family: var(--font-serif); font-size: 1.15rem; color: var(--text-main); margin-bottom: 8px;">
+            What happens now?
+          </h4>
+          <ul style="font-size: 0.85rem; color: var(--text-sub); list-style: none; display: flex; flex-direction: column; gap: 8px;">
+            <li>✓ <strong>Zero Financial Impact:</strong> No charges or debit authorizations were executed on your payment card.</li>
+            <li>✓ <strong>Session Reserved:</strong> Any flacons currently in your bag remain intact and ready for checkout.</li>
+            <li>✓ <strong>Private Concierge Assistance:</strong> Need guidance selecting the ideal formulation? Our senior perfumers are at your service.</li>
+          </ul>
+        </div>
+
+        <!-- Action Links -->
+        <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+          <a href="/#vault" class="btn-gold">Explore The Fragrance Vault →</a>
+          <button type="button" class="btn-secondary" onclick="openCart()">
+            Inspect Fragrance Bag 🛍️
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <%- include('partials/footer') %>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>
